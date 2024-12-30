@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <include file="classpath:db/changelog/company/company-meter-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-customer-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-complaint-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-meterreading-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-billgenerated-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-meterimage-1.0.xml"/>
+    <include file="classpath:db/changelog/company/company-units-1.0.xml"/>
+
+</databaseChangeLog>

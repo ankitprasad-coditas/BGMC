@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="add_bill_generated" author="ankit">
+        <createTable tableName="bill_generated">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="bill_generated_pkey"/>
+            </column>
+            <column name="version" type="INTEGER" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="company_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_amount" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meter_reading_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_head_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="bill_generated-2" author="ankit">
+        <addForeignKeyConstraint
+                baseTableName="bill_generated"
+                baseColumnNames="customer_id"
+                referencedTableName="customer"
+                referencedColumnNames="id"
+                constraintName="fk_bill_generated_customer"/>
+    </changeSet>
+
+    <changeSet id="add_fk_meter_reading_bill_generated" author="ankit">
+        <addForeignKeyConstraint
+                baseTableName="bill_generated"
+                baseColumnNames="meter_reading_id"
+                referencedTableName="meter_reading"
+                referencedColumnNames="id"
+                constraintName="fk_bill_generated_meter_reading"/>
+    </changeSet>
+
+    <changeSet id="add_fk_bill_generated_city" author="ankit">
+        <addForeignKeyConstraint
+                baseTableName="bill_generated"
+                baseColumnNames="city_head_id"
+                referencedTableSchemaName="public"
+                referencedTableName="user"
+                referencedColumnNames="id"
+                constraintName="fk_bill_generated_city_head"/>
+    </changeSet>
+
+    <changeSet id="add_bill_generated_sequence" author="ankit">
+        <sql dbms="postgresql">
+            ALTER SEQUENCE ${schema}.bill_generated_id_seq RESTART WITH 100000;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="initialize_table_schemas" author="ankit">
+        <sqlFile path="classpath:db/sql/master/schema.sql"/>
+    </changeSet>
+
+    <changeSet id="add_state_data" author="ankit">
+        <sqlFile path="classpath:db/sql/master/state.sql"/>
+    </changeSet>
+
+    <changeSet id="add_district_data" author="ankit">
+        <sqlFile path="classpath:db/sql/master/district.sql"/>
+    </changeSet>
+
+    <changeSet id="add_city_data" author="ankit">
+        <sqlFile path="classpath:db/sql/master/city.sql"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,46 @@
+1. Login APi
+    Request
+	a. username
+	b. password
+
+2. GET - List of customers
+    Response
+
+3. Get all states
+4. Get all districts ( By state )
+5. Get all cities ( By district )
+
+3. Create Company
+	a. company name
+	b. email
+	c. address
+	d. logo (multipart file)
+
+4. Get all companies  ( searchable (by name, by city ) , paginated ) , filterable ( based on city )
+    Request :-
+        a. state
+	a. id
+	b. company name
+	c. email
+	d. address ( city )
+	e. company logo
+
+
+5. Get region
+	a. get city by district by state
+
+6. Get Image By Company ID
+    a.logo path
+    b.company id
+
+7. Get all Customers by company id
+    a. customer id
+    b. name
+    c. email
+    d. city
+    e.
+
+8. Get Revenue by company id
+
+9.
+

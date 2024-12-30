@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Create meter table -->
+    <changeSet id="meter-1" author="ankit">
+        <createTable tableName="meter">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="meter_pkey"/>
+            </column>
+            <column name="meter_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meter_rate" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_of_readings" type="BIGINT"/>
+            <column name="time_interval" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="meter-2" author="ankit">
+        <sql dbms="postgresql">
+            ALTER SEQUENCE ${schema}.meter_id_seq RESTART WITH 100000;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

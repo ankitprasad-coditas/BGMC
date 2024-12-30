@@ -1,0 +1,8 @@
+1. Login APi
+2. Get List of all customers ( pagination and search ( by name and city ))
+3. Get list of all companies  ( pagination and search ( by name and city ))
+4. Create company
+5. Get region ( get city by district by state) - 3 api's
+6. Get image path (by company id)
+7. Get revenue (by company id)
+8.

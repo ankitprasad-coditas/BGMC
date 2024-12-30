@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="meter_reading-1" author="ankit">
+        <createTable tableName="meter_reading">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="meter_reading_pkey"/>
+            </column>
+            <column name="ground_worker_id" type="BIGINT"/>
+            <column name="units" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meter_type" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="meter_reading-2" author="ankit">
+        <addForeignKeyConstraint
+                baseTableName="meter_reading"
+                baseColumnNames="customer_id"
+                referencedTableName="customer"
+                referencedColumnNames="id"
+                constraintName="fk_meter_reading_customer"/>
+    </changeSet>
+
+    <changeSet id="meter_reading-3" author="ankit">
+        <addForeignKeyConstraint
+                baseTableName="meter_reading"
+                baseColumnNames="meter_type"
+                referencedTableName="meter"
+                referencedColumnNames="id"
+                constraintName="fk_meter_reading_meter"/>
+    </changeSet>
+
+    <changeSet id="meter_reading-4" author="ankit">
+        <sql dbms="postgresql">
+            ALTER SEQUENCE ${schema}.meter_reading_id_seq RESTART WITH 100000;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
