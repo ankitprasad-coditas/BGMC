@@ -80,7 +80,7 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
         User companyAdmin = new User();
         companyAdmin.setName(schemaName+"_Admin");
         companyAdmin.setEmail(companyRequestDto.getPrimaryEmail());
-        companyAdmin.setPassword(passwordEncoder.encode(generateRandomPassword(8)));
+        companyAdmin.setPassword(passwordEncoder.encode(randomPassword));
         companyAdmin.setRole(adminRole);
         companyAdmin.setProfilePicPath("NA");
         companyAdmin.setCompanyId(tenantId);
