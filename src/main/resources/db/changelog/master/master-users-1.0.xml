@@ -5,7 +5,7 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="create_users_table" author="ankit">
-        <createTable tableName="user" schemaName="public">
+        <createTable tableName="users" schemaName="public">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="user_pkey"/>
             </column>
@@ -19,7 +19,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="role_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_user_role" references="role(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_users_role" references="role(id)"/>
             </column>
             <column name="profile_pic_path" type="VARCHAR(255)"/>
             <column name="state_id" type="BIGINT"/>
@@ -34,7 +34,7 @@
         </createTable>
 
         <sql dbms="postgresql">
-            ALTER SEQUENCE public.user_id_seq RESTART WITH 1000;
+            ALTER SEQUENCE public.users_id_seq RESTART WITH 1000;
         </sql>
     </changeSet>
 

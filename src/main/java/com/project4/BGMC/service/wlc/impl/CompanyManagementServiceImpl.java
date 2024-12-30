@@ -77,16 +77,15 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
 
         String randomPassword = generateRandomPassword(8);
         Role adminRole = roleRepository.findByName("ADMIN").orElseThrow(()-> new MissingDataException("Role Not Found"));
-        User companyAdmin = User.builder()
-                .name(schemaName+"_Admin")
-                .email(companyRequestDto.getPrimaryEmail())
-                .password(passwordEncoder.encode(randomPassword))
-                .role(adminRole)
-                .profilePicPath("NA")
-                .companyId(tenantId)
-                .build();
+        User companyAdmin = new User();
+        companyAdmin.setName(schemaName+"_Admin");
+        companyAdmin.setEmail(companyRequestDto.getPrimaryEmail());
+        companyAdmin.setPassword(passwordEncoder.encode(generateRandomPassword(8)));
+        companyAdmin.setRole(adminRole);
+        companyAdmin.setProfilePicPath("NA");
+        companyAdmin.setCompanyId(tenantId);
 
-        userRepository.save(companyAdmin);
+        User savedUser = userRepository.save(companyAdmin);
         sendRandomPasswordEmail(companyAdmin, randomPassword);
     }
 

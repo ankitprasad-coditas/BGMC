@@ -60,7 +60,7 @@
                 baseTableName="bill_generated"
                 baseColumnNames="city_head_id"
                 referencedTableSchemaName="public"
-                referencedTableName="user"
+                referencedTableName="users"
                 referencedColumnNames="id"
                 constraintName="fk_bill_generated_city_head"/>
     </changeSet>

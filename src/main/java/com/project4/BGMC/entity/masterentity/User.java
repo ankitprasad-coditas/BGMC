@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Table(name = "users")
 public class User {
 
     @Id
@@ -31,11 +31,11 @@ public class User {
 
     private String profilePicPath;
 
-    private Long stateId;
+    private Long stateId = 0l;
 
-    private Long districtId;
+    private Long districtId = 0l;
 
-    private Long cityId;
+    private Long cityId = 0l;
 
     @Column(nullable = false)
     private String companyId;
