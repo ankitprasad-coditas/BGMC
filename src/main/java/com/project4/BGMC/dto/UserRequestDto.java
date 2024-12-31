@@ -16,7 +16,11 @@ public class UserRequestDto {
 
     @NotBlank(message = "Give marks for Logic")
     private String name;
-    private String emailId;
+    private String email;
     private Long role;
     private String profilePicturePath;
+    private Long stateId = 0l;
+    private Long districtId = 0l;
+    private Long cityId = 0l;
+    private boolean isDeleted = false;
 }

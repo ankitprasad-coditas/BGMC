@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -24,12 +26,12 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepo;
 
 
-
     public TokenResponseDto login(AuthRequestDto authRequestDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getEmail(), authRequestDto.getPassword()));
-            String accessToken = jwtService.generateAccessToken(authRequestDto.getEmail());
             User user = userRepo.findByEmail(authRequestDto.getEmail()).orElseThrow(() -> new UnauthorisedException("User not found with email: " + authRequestDto.getEmail()));
+            String companyId = user.getCompanyId();
+            String accessToken = jwtService.generateAccessToken(authRequestDto.getEmail(),companyId);
             String name = user.getName();
             String role = user.getRole().getName();
             TokenResponseDto tokenResponseDto = TokenResponseDto.builder()

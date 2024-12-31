@@ -1,14 +1,16 @@
 package com.project4.BGMC.service.wlc.impl;
 
 import com.project4.BGMC.dto.CompanyRequestDto;
+import com.project4.BGMC.dto.CompanyResponseDto;
 import com.project4.BGMC.entity.masterentity.Role;
 import com.project4.BGMC.entity.masterentity.User;
 import com.project4.BGMC.entity.wlc.Company;
+import com.project4.BGMC.exceptions.CompanyCreationException;
 import com.project4.BGMC.exceptions.MissingDataException;
+import com.project4.BGMC.mapper.Impl.CompanyResponseMapper;
 import com.project4.BGMC.repository.RoleRepository;
 import com.project4.BGMC.repository.UserRepository;
 import com.project4.BGMC.repository.wlc.CompanyRepository;
-import com.project4.BGMC.exceptions.CompanyCreationException;
 import com.project4.BGMC.service.wlc.CompanyManagementService;
 import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
@@ -47,13 +49,14 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final JavaMailSender javaMailSender;
+    private final CompanyResponseMapper companyResponseMapper;
 
     private static final String VALID_SCHEMA_NAME_REGEXP = "[A-Za-z0-9_]*";
 
     @Override
     public void createCompany(CompanyRequestDto companyRequestDto) {
 
-        String schemaName = companyRequestDto.getCompanyName();
+        String schemaName = companyRequestDto.getCompanyName().toLowerCase();
         String tenantId = UUID.randomUUID().toString();
 
         if (!schemaName.matches(VALID_SCHEMA_NAME_REGEXP)) {
@@ -69,23 +72,28 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
         } catch (LiquibaseException e) {
             throw new CompanyCreationException("Error when populating schema: ", e);
         }
+
         Company company = Company.builder()
                 .companyId(tenantId)
                 .companySchemaName(schemaName)
+                .citiList(Collections.singletonList(companyRequestDto.getCity()))
+                .companyEmail(companyRequestDto.getPrimaryEmail())
                 .build();
         companyRepository.save(company);
 
         String randomPassword = generateRandomPassword(8);
         Role adminRole = roleRepository.findByName("ADMIN").orElseThrow(()-> new MissingDataException("Role Not Found"));
-        User companyAdmin = new User();
-        companyAdmin.setName(schemaName+"_Admin");
-        companyAdmin.setEmail(companyRequestDto.getPrimaryEmail());
-        companyAdmin.setPassword(passwordEncoder.encode(randomPassword));
-        companyAdmin.setRole(adminRole);
-        companyAdmin.setProfilePicPath("NA");
-        companyAdmin.setCompanyId(tenantId);
+        User companyAdmin = User.builder()
+                .name(schemaName+"_Admin")
+                .email(companyRequestDto.getPrimaryEmail())
+                .password(passwordEncoder.encode(randomPassword))
+                .role(adminRole)
+                .profilePicPath("NA")
+                .cityId(companyRequestDto.getCity())
+                .companyId(tenantId)
+                .build();
 
-        User savedUser = userRepository.save(companyAdmin);
+        userRepository.save(companyAdmin);
         sendRandomPasswordEmail(companyAdmin, randomPassword);
     }
 
@@ -160,4 +168,12 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
             throw new RuntimeException("Failed to send email", e);
         }
     }
+
+
+    // Get All Companies
+    @Override
+    public List<CompanyResponseDto> getALlCompanies() {
+        return companyResponseMapper.toDtoList(companyRepository.findAll());
+    }
+
 }

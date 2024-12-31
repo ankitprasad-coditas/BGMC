@@ -13,5 +13,5 @@ public class CompanyRequestDto {
 
     private String companyName;
     private String primaryEmail;
-    private String city;
+    private Long city;
 }

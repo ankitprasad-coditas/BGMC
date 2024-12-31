@@ -10,11 +10,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseDto {
-
     private Long id;
     private String name;
-    private String emailId;
+    private String email;
     private String role;
-    private String profilePicturePath;
-    private String companyName;
+    private String profilePicPath;
+    private Long stateId;
+    private Long districtId;
+    private Long cityId;
+    private String companyId;
+    private boolean isDeleted;
 }
+

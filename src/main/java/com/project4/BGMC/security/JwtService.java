@@ -18,7 +18,7 @@ public class JwtService {
     private static final String SECRET_KEY = "357638792F423F4428472B4B6250655368566D597133743677397A2443264629";
     private static final long ACCESS_EXPIRATION_TIME = 1000 * 60 * 60 * 2;
 
-    public String generateAccessToken(String username) {
+    public String generateAccessToken(String username,String companyId) {
         Map<String, Object> claims = new HashMap<>();
         String accessToken = Jwts.builder()
                 .claims(claims)
@@ -26,6 +26,7 @@ public class JwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + ACCESS_EXPIRATION_TIME))
                 .claim("tokenName", "accessToken")
+                .claim("companyId", companyId)
                 .signWith(getSigningKey())
                 .compact();
 

@@ -24,3 +24,22 @@ CREATE TABLE public.state (
 	status varchar(10) NOT NULL,
 	CONSTRAINT state_pkey PRIMARY KEY (state_id)
 );
+
+
+-- Add foreign key constraint for 'districtid' in 'city' table referencing 'districtid' in 'district' table
+ALTER TABLE public.city
+    ADD CONSTRAINT fk_city_district FOREIGN KEY (districtid)
+    REFERENCES public.district (districtid)
+    ON DELETE CASCADE;
+
+-- Add foreign key constraint for 'state_id' in 'city' table referencing 'state_id' in 'state' table
+ALTER TABLE public.city
+    ADD CONSTRAINT fk_city_state FOREIGN KEY (state_id)
+    REFERENCES public.state (state_id)
+    ON DELETE CASCADE;
+
+-- Add foreign key constraint for 'state_id' in 'district' table referencing 'state_id' in 'state' table
+ALTER TABLE public.district
+    ADD CONSTRAINT fk_district_state FOREIGN KEY (state_id)
+    REFERENCES public.state (state_id)
+    ON DELETE CASCADE;

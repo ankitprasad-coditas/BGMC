@@ -30,12 +30,11 @@ public class CompanyFilter extends OncePerRequestFilter {
     private final Map<String, String> companySchemaMap; // tenantMap is injected here
 
     private static final List<String> EXCLUDED_PATHS = Arrays.asList("/api/company/create", "/api/health","/api/v1/user/login");
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String requestURI = request.getRequestURI();
+        /*String requestURI = request.getRequestURI();
 
         if (EXCLUDED_PATHS.contains(requestURI)) {
             filterChain.doFilter(request, response);
@@ -53,7 +52,7 @@ public class CompanyFilter extends OncePerRequestFilter {
         } else {
             throw new ServletException("Bad X-Tenant-ID header");
 
-        }
+        }*/
 
         try {
             String authorizationHeader = request.getHeader("Authorization");
@@ -65,6 +64,12 @@ public class CompanyFilter extends OncePerRequestFilter {
                     if (jwtService.validateToken(token, userDetails)) {
                         Claims claims = jwtService.extractAllClaims(token);
                         String tokenName = claims.get("tokenName", String.class);
+                        String companyId = claims.get("companyId", String.class);
+                        if(companyId!="NA"){
+                            CompanyContext.setCurrentCompanyId(companyId);
+                            CompanyContext.setCompanySchema(companySchemaMap.get(companyId));
+                        }
+
                         if (tokenName.equalsIgnoreCase("accessToken")) {
                             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -79,6 +84,7 @@ public class CompanyFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } finally {
+            CompanyContext.clearCompanyId();
             CompanyContext.clearCompanySchema();
         }
 

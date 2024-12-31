@@ -5,5 +5,5 @@ import com.project4.BGMC.dto.UserResponseDto;
 
 public interface UserService {
 
-    UserResponseDto createUser(UserRequestDto userRequestDto);
+    UserResponseDto createUser(UserRequestDto userRequestDto, String authorizationHeader);
 }

@@ -1,15 +1,16 @@
 package com.project4.BGMC.controller;
 
 
-import com.project4.BGMC.dto.ApiResponseDto;
-import com.project4.BGMC.dto.AuthRequestDto;
-import com.project4.BGMC.dto.TokenResponseDto;
+import com.project4.BGMC.dto.*;
+import com.project4.BGMC.entity.masterentity.User;
 import com.project4.BGMC.service.AuthService;
+import com.project4.BGMC.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final AuthService authService;
-//    private final UserService userService;
+    private final UserService userService;
 
 
 
@@ -31,13 +32,13 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    /*//Create User
+    //Create User
     @PostMapping("/createUser")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN','ADMIN')")
-    public ResponseEntity<ApiResponseDto<User>> createUser(@RequestBody UserRequestDto userRequestDto) {
-        ApiResponseDto<User> response = new ApiResponseDto<>(userService.createUser(userRequestDto), HttpStatus.CREATED.value(), "User Created Successfully");
+    public ResponseEntity<ApiResponseDto<UserResponseDto>> createUser(@RequestBody UserRequestDto userRequestDto,@RequestHeader("Authorization") String authorizationHeader) {
+        ApiResponseDto<UserResponseDto> response = new ApiResponseDto<>(userService.createUser(userRequestDto,authorizationHeader), HttpStatus.CREATED.value(), "User Created Successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }*/
+    }
 
     /*// Get All User
 //    @GetMapping("/allUser")
