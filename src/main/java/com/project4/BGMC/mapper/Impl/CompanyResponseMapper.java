@@ -1,6 +1,5 @@
 package com.project4.BGMC.mapper.Impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project4.BGMC.dto.CompanyResponseDto;
 import com.project4.BGMC.entity.wlc.Company;
 import com.project4.BGMC.mapper.DtoMapper;
@@ -19,7 +18,7 @@ public class CompanyResponseMapper implements DtoMapper<Company, CompanyResponse
     private final CityRepository cityRepository;
 
     @Override
-    public CompanyResponseDto toDto(Company entity) throws JsonProcessingException {
+    public CompanyResponseDto toDto(Company entity) {
         return null;
     }
 

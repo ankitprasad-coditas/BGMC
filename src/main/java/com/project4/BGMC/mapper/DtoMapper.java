@@ -1,7 +1,5 @@
 package com.project4.BGMC.mapper;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +17,7 @@ public interface DtoMapper<A, B> {
      * @param entity           New Grid View Entity
      * @return Response DTO
      */
-    B toDto(A entity) throws JsonProcessingException;
+    B toDto(A entity);
 
     /**
      * Method to convert Response DTO to entity.

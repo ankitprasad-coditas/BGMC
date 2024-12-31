@@ -1,6 +1,5 @@
 package com.project4.BGMC.mapper.Impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project4.BGMC.dto.RegionResponseDto;
 import com.project4.BGMC.entity.masterentity.City;
 import com.project4.BGMC.mapper.DtoMapper;
@@ -15,7 +14,7 @@ public class CityMapper implements DtoMapper<City, RegionResponseDto> {
 
 
     @Override
-    public RegionResponseDto toDto(City entity) throws JsonProcessingException {
+    public RegionResponseDto toDto(City entity) {
         return null;
     }
 

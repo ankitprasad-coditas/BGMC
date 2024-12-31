@@ -1,6 +1,5 @@
 package com.project4.BGMC.mapper.Impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project4.BGMC.dto.UserRequestDto;
 import com.project4.BGMC.entity.masterentity.User;
 import com.project4.BGMC.mapper.DtoMapper;
@@ -12,7 +11,7 @@ import java.util.Set;
 @Component
 public class UserRequestMapper implements DtoMapper<User, UserRequestDto> {
     @Override
-    public UserRequestDto toDto(User entity) throws JsonProcessingException {
+    public UserRequestDto toDto(User entity) {
         return null;
     }
 

@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MeterRepository extends JpaRepository<Meter, Long> {
-    // Add custom query methods if needed, e.g.:
-    // Optional<Meter> findByMeterType(String meterType);
-    // List<Meter> findByIsDeleted(boolean isDeleted);
+
 }
